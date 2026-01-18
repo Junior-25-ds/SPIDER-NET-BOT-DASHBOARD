@@ -1,118 +1,142 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SpiderNet Bot</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-dark">
 
-  <!-- HEADER -->
-  <header class="topbar">
-    <button id="menu-toggle" class="menu-btn">☰</button>
-    <div class="brand">
-      <span class="logo">🕷️</span>
-      <span class="name">SpiderNet Bot</span>
-    </div>
-    <div class="bot-mini-status">
-      <span class="dot online"></span>
-      <span id="bot-status-text">En ligne</span>
-    </div>
-  </header>
+  <!-- ÉCRAN D'ACCUEIL : Choix Propriétaire / Invité -->
+  <div id="entry-screen" class="login-screen">
+    <h2>Bienvenue sur SpiderNet Bot</h2>
+    <p>Connectez-vous :</p>
+    <button class="entry-btn" id="owner-btn">Propriétaire</button>
+    <button class="entry-btn" id="guest-btn">Invité</button>
+  </div>
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li data-section="dashboard" class="active">🏠 Tableau de bord</li>
-        <li data-section="guests">👥 Invités</li>
-        <li data-section="admins">🛡️ Admins</li>
-        <li data-section="groups">📦 Groupes</li>
-        <li data-section="history">📜 Historique</li>
-        <li data-section="broadcast">💬 Diffusion</li>
-        <li data-section="settings">⚙️ Paramètres</li>
-      </ul>
-    </nav>
-  </aside>
+  <!-- LOGIN PROPRIÉTAIRE -->
+  <div id="owner-login-screen" class="login-screen hidden">
+    <h2>Propriétaire</h2>
+    <input type="password" id="owner-password" placeholder="Mot de passe">
+    <button id="owner-login-btn">Se connecter</button>
+    <p id="owner-login-error" class="error-msg"></p>
+    <button class="back-btn" id="owner-back">← Retour</button>
+  </div>
 
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
+  <!-- LOGIN INVITÉ -->
+  <div id="guest-login-screen" class="login-screen hidden">
+    <h2>Invité</h2>
+    <input type="password" id="guest-password" placeholder="Mot de passe invité">
+    <button id="guest-login-btn">Se connecter</button>
+    <p id="guest-login-error" class="error-msg"></p>
+    <button class="back-btn" id="guest-back">← Retour</button>
+  </div>
 
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="section active">
-      <h1>Tableau de bord</h1>
-      <div class="cards">
-        <div class="card"><h3>Statut du bot</h3><p id="bot-status">🟢 En ligne</p></div>
-        <div class="card"><h3>Temps en ligne</h3><p id="bot-uptime">—</p></div>
-        <div class="card"><h3>Ping serveur</h3><p id="bot-ping">— ms</p></div>
-        <div class="card"><h3>Groupes</h3><p id="groups-count">—</p></div>
-        <div class="card"><h3>Membres</h3><p id="members-count">—</p></div>
-      </div>
-    </section>
+  <!-- ÉCRAN NOM D'UTILISATEUR POUR INVITÉ -->
+  <div id="guest-username-screen" class="login-screen hidden">
+    <h2>Bienvenue Invité</h2>
+    <input type="text" id="guest-username" placeholder="Choisissez votre pseudo">
+    <button id="guest-username-btn">Entrer</button>
+  </div>
 
-    <!-- INVITÉS -->
-    <section id="guests" class="section">
-      <h1>Gérer les invités</h1>
-      <table class="data-table">
-        <thead>
-          <tr><th>Nom</th><th>Numéro</th><th>Groupe</th><th>Statut</th><th>Actions</th></tr>
-        </thead>
-        <tbody id="guests-table"></tbody>
-      </table>
-    </section>
+  <!-- DASHBOARD PRINCIPAL -->
+  <div id="dashboard-app" class="dashboard-app hidden">
 
-    <!-- ADMINS -->
-    <section id="admins" class="section">
-      <h1>Gérer les admins</h1>
-      <table class="data-table">
-        <thead>
-          <tr><th>Nom</th><th>Numéro</th><th>Rôle</th><th>Actions</th></tr>
-        </thead>
-        <tbody id="admins-table"></tbody>
-      </table>
-    </section>
+    <!-- HEADER -->
+    <header class="topbar">
+      <button id="menu-toggle" class="menu-btn">☰</button>
+      <div class="brand"><span class="logo">🕷️</span> SpiderNet Bot</div>
+      <div class="bot-mini-status"><span class="dot online" id="bot-dot"></span><span id="bot-status-text">En ligne</span></div>
+    </header>
 
-    <!-- GROUPES -->
-    <section id="groups" class="section">
-      <h1>Groupes</h1>
-      <table class="data-table">
-        <thead>
-          <tr><th>Nom</th><th>Membres</th><th>Admins</th><th>Statut</th></tr>
-        </thead>
-        <tbody id="groups-table"></tbody>
-      </table>
-    </section>
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <nav>
+        <ul>
+          <li data-section="dashboard" class="active">🏠 Tableau de bord</li>
+          <li data-section="guests">👥 Invités</li>
+          <li data-section="admins">🛡️ Admins</li>
+          <li data-section="groups">📦 Groupes</li>
+          <li data-section="history">📜 Historique</li>
+          <li data-section="broadcast">💬 Diffusion</li>
+          <li data-section="settings">⚙️ Paramètres</li>
+        </ul>
+      </nav>
+    </aside>
 
-    <!-- HISTORIQUE -->
-    <section id="history" class="section">
-      <h1>Historique</h1>
-      <ul class="history-list" id="history-list"></ul>
-    </section>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
 
-    <!-- BROADCAST -->
-    <section id="broadcast" class="section">
-      <h1>Diffusion (Brouk)</h1>
-      <textarea id="broadcast-message" placeholder="Écris ton message à diffuser..."></textarea>
-      <div class="broadcast-options">
-        <label><input type="checkbox" /> Tous les groupes</label>
-        <label><input type="checkbox" /> Admins seulement</label>
-      </div>
-      <button class="primary-btn" id="send-broadcast">🚀 Envoyer</button>
-    </section>
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="section active">
+        <h1>Tableau de bord</h1>
+        <div class="cards">
+          <div class="card"><h3>Statut du bot</h3><p id="bot-status">—</p></div>
+          <div class="card"><h3>Temps en ligne</h3><p id="bot-uptime">—</p></div>
+          <div class="card"><h3>Ping serveur</h3><p id="bot-ping">— ms</p></div>
+          <div class="card"><h3>Groupes</h3><p id="groups-count">—</p></div>
+          <div class="card"><h3>Membres</h3><p id="members-count">—</p></div>
+        </div>
+      </section>
 
-    <!-- PARAMÈTRES -->
-    <section id="settings" class="section">
-      <h1>Paramètres</h1>
-      <div class="setting">
-        <span>Mode clair / sombre</span>
-        <button id="theme-toggle" class="secondary-btn">🌙 / ☀️</button>
-      </div>
-    </section>
+      <!-- INVITÉS -->
+      <section id="guests" class="section">
+        <h1>Gérer les invités</h1>
+        <table class="data-table">
+          <thead><tr><th>Nom</th><th>Numéro</th><th>Groupe</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="guests-table"></tbody>
+        </table>
+      </section>
 
-  </main>
+      <!-- ADMINS -->
+      <section id="admins" class="section">
+        <h1>Gérer les admins</h1>
+        <table class="data-table">
+          <thead><tr><th>Nom</th><th>Numéro</th><th>Rôle</th><th>Actions</th></tr></thead>
+          <tbody id="admins-table"></tbody>
+        </table>
+      </section>
+
+      <!-- GROUPES -->
+      <section id="groups" class="section">
+        <h1>Groupes</h1>
+        <table class="data-table">
+          <thead><tr><th>Nom</th><th>Membres</th><th>Admins</th><th>Statut</th></tr></thead>
+          <tbody id="groups-table"></tbody>
+        </table>
+      </section>
+
+      <!-- HISTORIQUE -->
+      <section id="history" class="section">
+        <h1>Historique</h1>
+        <ul class="history-list" id="history-list"></ul>
+      </section>
+
+      <!-- BROADCAST -->
+      <section id="broadcast" class="section">
+        <h1>Diffusion (Brouk)</h1>
+        <textarea id="broadcast-message" placeholder="Écris ton message à diffuser..."></textarea>
+        <div class="broadcast-options">
+          <label><input type="checkbox" id="all-groups" checked /> Tous les groupes</label>
+          <label><input type="checkbox" id="admins-only" /> Admins seulement</label>
+        </div>
+        <button class="primary-btn" id="send-broadcast">🚀 Envoyer</button>
+      </section>
+
+      <!-- PARAMÈTRES -->
+      <section id="settings" class="section">
+        <h1>Paramètres</h1>
+        <div class="setting">
+          <span>Mode clair / sombre</span>
+          <button id="theme-toggle" class="secondary-btn">🌙 / ☀️</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-    <div class="footer">© 2024 SpiderNet Bot. Tous droits réservés.</div>
