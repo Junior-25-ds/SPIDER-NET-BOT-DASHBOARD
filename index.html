@@ -8,12 +8,13 @@
 </head>
 <body class="theme-dark">
 
-  <!-- ÉCRAN D'ACCUEIL : Choix Propriétaire / Invité -->
-  <div id="entry-screen" class="login-screen">
+  <!-- ÉCRAN ACCUEIL ANIMÉ -->
+  <div id="welcome-screen" class="login-screen">
+    <img src="spidernet_logo.png" alt="SpiderNet Logo" class="logo-anim">
     <h2>Bienvenue sur SpiderNet Bot</h2>
-    <p>Connectez-vous :</p>
-    <button class="entry-btn" id="owner-btn">Propriétaire</button>
-    <button class="entry-btn" id="guest-btn">Invité</button>
+    <p>Choisissez votre mode de connexion :</p>
+    <button id="owner-btn" class="entry-btn">Propriétaire</button>
+    <button id="guest-btn" class="entry-btn">Invité</button>
   </div>
 
   <!-- LOGIN PROPRIÉTAIRE -->
@@ -34,10 +35,10 @@
     <button class="back-btn" id="guest-back">← Retour</button>
   </div>
 
-  <!-- ÉCRAN NOM D'UTILISATEUR POUR INVITÉ -->
+  <!-- INVITÉ PSEUDO -->
   <div id="guest-username-screen" class="login-screen hidden">
-    <h2>Bienvenue Invité</h2>
-    <input type="text" id="guest-username" placeholder="Choisissez votre pseudo">
+    <h2>Choisissez votre pseudo</h2>
+    <input type="text" id="guest-username" placeholder="Votre pseudo">
     <button id="guest-username-btn">Entrer</button>
   </div>
 
